@@ -1,0 +1,111 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String   @id
+  name           String
+  email          String   @unique
+  avatar         String
+  role           String   // "poster" or "worker"
+  rating         Float    @default(5.0)
+  reviewCount    Int      @default(0)
+  completedJobs  Int      @default(0)
+  skills         String[] // PostgreSQL supports string arrays
+  certifications String[]
+  balance        Float    @default(0.0)
+  latitude       Float?
+  longitude      Float?
+
+  // Relations
+  postedJobs       Job[]         @relation("PostedJobs")
+  assignedJobs     Job[]         @relation("AssignedJobs")
+  applications     Application[]
+  sentMessages     Message[]     @relation("SentMessages")
+  receivedMessages Message[]     @relation("ReceivedMessages")
+}
+
+model Job {
+  id           String   @id
+  title        String
+  description  String
+  category     String
+  posterId     String
+  poster       User     @relation("PostedJobs", fields: [posterId], references: [id])
+  posterName   String
+  posterRating Float
+  budget       Float
+  location     String
+  date         String   // "YYYY-MM-DD"
+  status       String   // "open", "in_progress", "completed"
+  requirements String[]
+  duration     String
+  createdDate  String   // "YYYY-MM-DD"
+  workerId     String?
+  worker       User?    @relation("AssignedJobs", fields: [workerId], references: [id])
+  workerName   String?
+  latitude     Float?
+  longitude    Float?
+
+  // Relations
+  applications Application[]
+  messages     Message[]
+  reviews      Review[]
+}
+
+model Application {
+  id                   String   @id
+  jobId                String
+  job                  Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  jobTitle             String
+  workerId             String
+  worker               User     @relation(fields: [workerId], references: [id], onDelete: Cascade)
+  workerName           String
+  workerAvatar         String
+  workerRating         Float
+  workerCompletionRate Float
+  bidAmount            Float
+  message              String
+  status               String   // "pending", "accepted", "rejected"
+  date                 String   // "YYYY-MM-DD"
+}
+
+model Review {
+  id           String   @id
+  jobId        String
+  job          Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  rating       Float
+  comment      String
+  reviewerName String
+  reviewerRole String
+  date         String   // "YYYY-MM-DD"
+}
+
+model Message {
+  id         String   @id
+  jobId      String
+  job        Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  senderId   String
+  sender     User     @relation("SentMessages", fields: [senderId], references: [id])
+  senderName String
+  receiverId String
+  receiver   User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  content    String
+  timestamp  String
+}
+
+model Notification {
+  id     String   @id
+  userId String   // Keep as plain String to support "all" value
+  text   String
+  read   Boolean  @default(false)
+  date   String
+}

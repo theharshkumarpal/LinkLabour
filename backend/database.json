@@ -1,0 +1,291 @@
+{
+  "users": [
+    {
+      "id": "poster-1",
+      "name": "Vikas Sharma (Contractor)",
+      "email": "vikas@sharmaconstruction.com",
+      "avatar": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150",
+      "role": "poster",
+      "rating": 4.8,
+      "reviewCount": 24,
+      "completedJobs": 18,
+      "skills": [],
+      "certifications": [],
+      "balance": 5000
+    },
+    {
+      "id": "worker-1",
+      "name": "Rajesh Kumar (Electrician)",
+      "email": "rajesh.electrician@gmail.com",
+      "avatar": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=150",
+      "role": "worker",
+      "rating": 4.9,
+      "reviewCount": 38,
+      "completedJobs": 42,
+      "skills": [
+        "Wiring",
+        "Smart Home Setup",
+        "Chandelier Installation",
+        "Appliance Repair",
+        "Generator Service"
+      ],
+      "certifications": [
+        "Govt Certified Electrician Grade A",
+        "SmartHome Systems Expert"
+      ],
+      "balance": 850
+    },
+    {
+      "id": "worker-2",
+      "name": "Manpreet Singh (Mason)",
+      "email": "manpreet.masonry@yahoo.com",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
+      "role": "worker",
+      "rating": 4.7,
+      "reviewCount": 19,
+      "completedJobs": 21,
+      "skills": [
+        "Brickwork",
+        "Plastering",
+        "Tile Installation",
+        "Foundation Laying",
+        "Concrete Mixing"
+      ],
+      "certifications": [
+        "Guild of Master Masons Certificate"
+      ],
+      "balance": 320
+    },
+    {
+      "id": "worker-3",
+      "name": "Amit Verma (AC Technician)",
+      "email": "amit.ac.tech@outlook.com",
+      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150",
+      "role": "worker",
+      "rating": 4.8,
+      "reviewCount": 56,
+      "completedJobs": 65,
+      "skills": [
+        "Gas Refill",
+        "Compressor Repair",
+        "AC Installation",
+        "HVAC Diagnostics",
+        "Filter Cleaning"
+      ],
+      "certifications": [
+        "HVAC Certified Technician Level 2",
+        "Daikin & LG Verified Partner"
+      ],
+      "balance": 1250
+    },
+    {
+      "id": "worker-4",
+      "name": "Suresh Patil (Plumber)",
+      "email": "suresh.plumbing@gmail.com",
+      "avatar": "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=150",
+      "role": "worker",
+      "rating": 4.6,
+      "reviewCount": 29,
+      "completedJobs": 33,
+      "skills": [
+        "Pipe Leak Repair",
+        "Bathroom Fitting",
+        "Drain Cleaning",
+        "Water Pump Repair",
+        "Geyser Installation"
+      ],
+      "certifications": [
+        "Municipal Plumber License"
+      ],
+      "balance": 410
+    }
+  ],
+  "jobs": [
+    {
+      "id": "job-1",
+      "title": "Kitchen Sink Drain Leak Repair",
+      "description": "The drain pipe underneath our kitchen sink is leaking heavily whenever the tap runs. It seems to have cracked or loosened at the joint. Need a plumber to inspect it, replace any broken pipes, and seal the joints properly. I have bought some basic Teflon tape, but you might need to bring PVC adhesive and a replacement drain coupler.",
+      "category": "Plumbing",
+      "posterId": "poster-2",
+      "posterName": "Aditi Rao",
+      "posterRating": 4.6,
+      "budget": 80,
+      "location": "Sector 45, Noida",
+      "date": "2026-06-15",
+      "status": "open",
+      "requirements": [
+        "PVC Pipe Joinery",
+        "Leak Diagnostics",
+        "Bring own tools"
+      ],
+      "duration": "2 Hours",
+      "createdDate": "2026-06-13"
+    },
+    {
+      "id": "job-2",
+      "title": "Install Brick Wall for Garden Fence",
+      "description": "Looking for an experienced mason to construct a brick perimeter wall for my garden. The dimensions are approximately 15 feet long and 4 feet high. All materials (bricks, sand, cement, water supply) are already at the site. Need someone who can build a clean, straight, and stable wall. Mixing concrete/mortar and cleaning up the workspace afterward is expected.",
+      "category": "Masonry",
+      "posterId": "poster-1",
+      "posterName": "Vikas Sharma (Contractor)",
+      "posterRating": 4.8,
+      "budget": 350,
+      "location": "Sohna Road, Gurgaon",
+      "date": "2026-06-17",
+      "status": "open",
+      "requirements": [
+        "Bricklaying",
+        "Level Alignment",
+        "Mortar Mixing",
+        "Safety Gear"
+      ],
+      "duration": "2 Days",
+      "createdDate": "2026-06-12"
+    },
+    {
+      "id": "job-3",
+      "title": "Complete Smart Home Light Switch Installation",
+      "description": "Need an electrician to install and configure smart touch switches for my living room and master bedroom. There are 4 switch boards in total to be upgraded. I have purchased the touch panel switches (Wipro Smart Switches). Standard wiring and neutral wires are present. Testing the switches with the Alexa/SmartLife app is required before finishing.",
+      "category": "Electrical",
+      "posterId": "poster-1",
+      "posterName": "Vikas Sharma (Contractor)",
+      "posterRating": 4.8,
+      "budget": 120,
+      "location": "Vasant Kunj, New Delhi",
+      "date": "2026-06-14",
+      "status": "open",
+      "requirements": [
+        "Smart Switch Connection",
+        "Living Wire Handling",
+        "Neutral Wire Setup"
+      ],
+      "duration": "4 Hours",
+      "createdDate": "2026-06-13"
+    },
+    {
+      "id": "job-4",
+      "title": "Gas Refill & Servicing for 2 Split ACs",
+      "description": "Both split ACs (1.5 Ton, Carrier & Voltas) in my apartment have stopped cooling effectively. The fan runs fine but the air is not cold. Suspecting a gas leak or low refrigerant levels. Need an AC technician to detect leaks, weld/repair if needed, vacuum the lines, and refill the R32 refrigerant. Please bring your pressure gauges and gas cylinders.",
+      "category": "AC/HVAC",
+      "posterId": "poster-3",
+      "posterName": "Rohan Gupta",
+      "posterRating": 4.9,
+      "budget": 110,
+      "location": "Indiranagar, Bangalore",
+      "date": "2026-06-16",
+      "status": "open",
+      "requirements": [
+        "R32 Refrigerant Refill",
+        "Leak Detection/Welding",
+        "AC Cleaning"
+      ],
+      "duration": "3 Hours",
+      "createdDate": "2026-06-13"
+    },
+    {
+      "id": "job-5",
+      "title": "Install 5 New Ceiling Fans",
+      "description": "Replacing older ceiling fans with new energy-efficient BLDC fans in my house. The old fans are already uninstalled. Need a technician to securely mount the new fans, connect the wires, and set up the remote controls that come with them.",
+      "category": "Electrical",
+      "posterId": "poster-4",
+      "posterName": "Meera Deshmukh",
+      "posterRating": 4.7,
+      "budget": 90,
+      "location": "Andheri West, Mumbai",
+      "date": "2026-06-18",
+      "status": "in_progress",
+      "workerId": "worker-1",
+      "workerName": "Rajesh Kumar (Electrician)",
+      "requirements": [
+        "BLDC Fan Hookup",
+        "Ceiling Mount Stability",
+        "Remote Pairing"
+      ],
+      "duration": "3 Hours",
+      "createdDate": "2026-06-11"
+    }
+  ],
+  "applications": [
+    {
+      "id": "app-1",
+      "jobId": "job-1",
+      "jobTitle": "Kitchen Sink Drain Leak Repair",
+      "workerId": "worker-4",
+      "workerName": "Suresh Patil (Plumber)",
+      "workerAvatar": "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=150",
+      "workerRating": 4.6,
+      "workerCompletionRate": 95,
+      "bidAmount": 75,
+      "message": "Hello, I am a certified plumber with 8 years of experience. I have done dozens of sink leak repairs. I can come over tomorrow morning at 10 AM, replace the cracked joint, and seal everything perfectly. I carry all necessary PVC adhesives.",
+      "status": "pending",
+      "date": "2026-06-13"
+    },
+    {
+      "id": "app-2",
+      "jobId": "job-2",
+      "jobTitle": "Install Brick Wall for Garden Fence",
+      "workerId": "worker-2",
+      "workerName": "Manpreet Singh (Mason)",
+      "workerAvatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
+      "workerRating": 4.7,
+      "workerCompletionRate": 98,
+      "bidAmount": 350,
+      "message": "Hi Sir, I read your description and I am ready to start on June 17. Bricklaying is my specialty, and I guarantee clean horizontal lines and strong mortar. I bring my own high-quality spirit levels, trowels, and safety gear. Let me know if we can proceed.",
+      "status": "pending",
+      "date": "2026-06-13"
+    },
+    {
+      "id": "app-3",
+      "jobId": "job-3",
+      "jobTitle": "Complete Smart Home Light Switch Installation",
+      "workerId": "worker-1",
+      "workerName": "Rajesh Kumar (Electrician)",
+      "workerAvatar": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=150",
+      "workerRating": 4.9,
+      "workerCompletionRate": 100,
+      "bidAmount": 110,
+      "message": "Hello Vikas, I have installed Wipro smart switches in multiple houses before. I know exactly how to map the connections and pair them with home automation systems like Alexa. I can complete all 4 switchboards in less than 3 hours. Ready to come tomorrow.",
+      "status": "pending",
+      "date": "2026-06-13"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "rev-1",
+      "jobId": "job-old-1",
+      "rating": 5,
+      "comment": "Rajesh did a fantastic job. He completed the wiring of our office space in record time, was extremely polite, and cleaned up after finishing the work. Highly recommended!",
+      "reviewerName": "Kabir Mehta",
+      "reviewerRole": "poster",
+      "date": "2026-05-28"
+    },
+    {
+      "id": "rev-2",
+      "jobId": "job-old-2",
+      "rating": 4,
+      "comment": "Good mason, wall looks solid. Took slightly longer than expected due to heavy rain, but he kept working hard. Very satisfied.",
+      "reviewerName": "Sanjay Dutt",
+      "reviewerRole": "poster",
+      "date": "2026-06-02"
+    },
+    {
+      "id": "rev-3",
+      "jobId": "job-old-3",
+      "rating": 5,
+      "comment": "Excellent plumbing service. Suresh identified the issue in minutes and fixed the water tank valve leak. Fair pricing.",
+      "reviewerName": "Priya Nair",
+      "reviewerRole": "poster",
+      "date": "2026-06-08"
+    }
+  ],
+  "messages": [],
+  "notifications": [
+    {
+      "id": "1",
+      "userId": "all",
+      "text": "Welcome to LaborLink! Log in or register an account to view and participate in the gig marketplace.",
+      "read": false,
+      "date": "Just Now"
+    }
+  ]
+}
