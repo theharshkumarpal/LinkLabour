@@ -11,34 +11,14 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ title, message, iconType
   const Icon = iconType === 'search' ? SearchX : iconType === 'inbox' ? Inbox : Compass;
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '4rem 2rem',
-      backgroundColor: 'rgba(0,0,0,0.1)',
-      borderRadius: 'var(--radius-2xl)',
-      border: '1px dashed var(--border-color)',
-      textAlign: 'center',
-      animation: 'fadeIn 0.5s ease',
-    }}>
-      <div style={{
-        width: '64px',
-        height: '64px',
-        borderRadius: '50%',
-        backgroundColor: 'var(--primary-light)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: '1.5rem',
-      }}>
+    <div className="flex flex-col items-center justify-center py-16 px-8 bg-bg-inset rounded-2xl border border-dashed border-border-color text-center animate-[fadeIn_0.5s_ease]">
+      <div className="w-16 h-16 rounded-full bg-primary-light flex items-center justify-center mb-6">
         <Icon size={32} color="var(--primary)" />
       </div>
-      <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
+      <h3 className="text-xl font-extrabold text-text-primary mb-2">
         {title}
       </h3>
-      <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', maxWidth: '300px' }}>
+      <p className="text-text-muted text-sm max-w-[300px]">
         {message}
       </p>
     </div>

@@ -1,3 +1,41 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Outfit', var(--font-sans);
+  
+  --color-bg-app: var(--bg-app);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-surface-solid: var(--bg-surface-solid);
+  --color-bg-surface-hover: var(--bg-surface-hover);
+  --color-bg-inset: var(--bg-inset);
+  
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-light: var(--primary-light);
+  
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-light: var(--accent-light);
+  
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  
+  --color-warning: var(--warning);
+  --color-warning-light: var(--warning-light);
+  --color-danger: var(--danger);
+  --color-danger-light: var(--danger-light);
+  --color-info: var(--info);
+  --color-info-light: var(--info-light);
+  
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+}
+
 /* ═══════════════════════════════════════════════════════════
    LaborLink — Premium Design System
    ═══════════════════════════════════════════════════════════ */
@@ -271,8 +309,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-icon {
-  padding: 0.5rem;
+  padding: 0;
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: var(--radius-lg);
+  flex-shrink: 0;
 }
 
 .btn-sm {
@@ -582,6 +626,11 @@ h1, h2, h3, h4, h5, h6 {
   transition: all var(--transition-fast);
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-md);
+  z-index: 100;
+}
+[data-tooltip-position="bottom"]::after {
+  bottom: auto;
+  top: 125%;
 }
 [data-tooltip]:hover::after {
   opacity: 1; visibility: visible;
@@ -2253,6 +2302,7 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  overflow: hidden;
 }
 
 .milestone-header {
@@ -2275,6 +2325,7 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   gap: 4px;
+  flex-shrink: 0;
 }
 
 .milestone-steps-container {
@@ -2283,17 +2334,20 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: space-between;
   align-items: flex-start;
   margin-top: 0.25rem;
-  padding: 0 0.5rem;
+  padding: 0;
 }
 
 .milestone-progress-line {
   position: absolute;
   top: 12px;
-  left: 24px;
-  right: 24px;
+  left: 0;
+  right: 0;
   height: 3px;
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--border-color);
   z-index: 1;
+  /* Inset the line to align with center of first and last circles */
+  margin-left: calc(100% / 8);
+  margin-right: calc(100% / 8);
 }
 
 .milestone-progress-fill {
@@ -2310,7 +2364,8 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   z-index: 2;
   cursor: default;
-  flex: 1;
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 .milestone-circle {
@@ -2323,10 +2378,11 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.65rem;
   font-weight: 800;
   transition: all var(--transition-normal);
+  flex-shrink: 0;
 }
 
 .milestone-circle.pending {
-  background: #111827;
+  background: var(--bg-surface-solid);
   color: var(--text-muted);
   border: 2px solid var(--border-color);
 }
@@ -2347,13 +2403,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .milestone-label {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 700;
   color: var(--text-muted);
-  margin-top: 0.5rem;
+  margin-top: 0.375rem;
   text-align: center;
   transition: color var(--transition-normal);
-  white-space: nowrap;
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.3;
+  max-width: 100%;
+  padding: 0 2px;
 }
 
 .milestone-step.active .milestone-label {

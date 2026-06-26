@@ -31,6 +31,7 @@ model User {
   applications     Application[]
   sentMessages     Message[]     @relation("SentMessages")
   receivedMessages Message[]     @relation("ReceivedMessages")
+  paymentsMade     Payment[]     @relation("PaymentsMade")
 }
 
 model Job {
@@ -59,6 +60,7 @@ model Job {
   applications Application[]
   messages     Message[]
   reviews      Review[]
+  payments     Payment[]
 }
 
 model Application {
@@ -108,4 +110,22 @@ model Notification {
   text   String
   read   Boolean  @default(false)
   date   String
+}
+
+model Payment {
+  id              String    @id
+  idempotencyKey  String    @unique
+  jobId           String
+  job             Job       @relation(fields: [jobId], references: [id])
+  applicationId   String?
+  payerId         String
+  payer           User      @relation("PaymentsMade", fields: [payerId], references: [id])
+  payeeId         String?
+  amount          Float
+  method          String    // "upi", "card"
+  methodDetail    String?   // masked UPI ID or last 4 digits of card
+  status          String    // "pending", "completed", "failed", "refunded"
+  type            String    // "escrow_fund", "escrow_release"
+  createdAt       DateTime  @default(now())
+  completedAt     DateTime?
 }

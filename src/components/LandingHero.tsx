@@ -30,7 +30,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
   ];
 
   return (
-    <div className="container" style={{ paddingTop: '4rem', paddingBottom: '4rem', display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+    <div className="container animate-fade-in" style={{ paddingTop: '4rem', paddingBottom: '4rem', display: 'flex', flexDirection: 'column', gap: '3rem' }}>
       
       {/* Hero Header Section */}
       <div className="hero-section">
@@ -66,7 +66,7 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
           { label: 'Average Client Rating', val: '4.92 / 5', icon: <Star size={18} color="var(--warning)" /> },
           { label: 'Secure Payouts Released', val: '$324.5K', icon: <ShieldCheck size={18} color="var(--info)" /> }
         ].map((stat, i) => (
-          <div key={i} className="glass-panel stat-card">
+          <div key={i} className="glass-panel stat-card animate-slide-up" style={{ animationDelay: `${0.1 * i}s` }}>
             <div className="stat-icon">{stat.icon}</div>
             <div>
               <div className="stat-value">{stat.val}</div>
@@ -91,7 +91,8 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
             return (
               <div
                 key={i}
-                className="premium-card category-card"
+                className="premium-card category-card animate-slide-up"
+                style={{ animationDelay: `${0.1 * i}s` }}
                 onClick={() => { onSelectCategory(cat.name); setView('dashboard'); }}
               >
                 <div>

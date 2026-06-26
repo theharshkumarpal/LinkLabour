@@ -52,7 +52,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             fontFamily: 'var(--font-heading)',
             fontSize: '1.3rem',
             fontWeight: 800,
-            background: 'linear-gradient(135deg, #ffffff 40%, var(--primary) 100%)',
+            background: 'linear-gradient(135deg, var(--text-primary) 40%, var(--primary) 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             letterSpacing: '-0.5px'
@@ -111,6 +111,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           className="btn btn-outline btn-icon"
           onClick={toggleTheme}
           data-tooltip={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+          data-tooltip-position="bottom"
         >
           {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
         </button>
@@ -220,7 +221,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* Logout Button */}
             {onLogout && (
-              <button className="btn btn-outline btn-icon" onClick={onLogout} data-tooltip="Log Out">
+              <button className="btn btn-outline btn-icon" onClick={onLogout} data-tooltip="Log Out" data-tooltip-position="bottom">
                 <LogOut size={18} color="var(--danger)" />
               </button>
             )}

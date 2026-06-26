@@ -1,4 +1,5 @@
 import prisma from '../config/prisma.js';
+import { emitNotification } from '../socket.js';
 
 export const getJobs = async (req, res) => {
   try {
@@ -50,7 +51,7 @@ export const completeJob = async (req, res) => {
     });
 
     // Notify the poster
-    await prisma.notification.create({
+    const notif = await prisma.notification.create({
       data: {
         id: `notif-${Date.now()}`,
         userId: job.posterId,
@@ -59,6 +60,7 @@ export const completeJob = async (req, res) => {
         date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }
     });
+    emitNotification(job.posterId, notif);
 
     res.json({ success: true, job });
   } catch (err) {
@@ -120,7 +122,7 @@ export const releaseEscrow = async (req, res) => {
       });
 
       // Notify worker
-      await tx.notification.create({
+      const notif = await tx.notification.create({
         data: {
           id: `notif-${Date.now()}`,
           userId: job.workerId,
@@ -130,8 +132,12 @@ export const releaseEscrow = async (req, res) => {
         }
       });
 
-      return { job: updatedJob, worker: updatedWorker, review: newReview };
+      return { job: updatedJob, worker: updatedWorker, review: newReview, notification: notif };
     });
+
+    if (result.notification) {
+      emitNotification(result.notification.userId, result.notification);
+    }
 
     res.json({ success: true, job: result.job });
   } catch (err) {

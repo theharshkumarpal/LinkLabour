@@ -12,6 +12,7 @@ import { MOCK_USERS } from './mockData';
 import { Plus, Search, Filter, Compass, MessageSquare, List, Map } from 'lucide-react';
 import { AuthPage } from './components/AuthPage';
 import { api } from './services/api';
+import { connectSocket, disconnectSocket, joinChat, leaveChat } from './services/socket';
 import { calculateDistance } from './utils/distance';
 import { useToast } from './components/ToastProvider';
 import { EmptyState } from './components/EmptyState';
@@ -79,7 +80,8 @@ function App() {
   // --- Sync State to LocalStorage ---
   useEffect(() => {
     localStorage.setItem('ll_theme', theme);
-    document.documentElement.className = theme === 'dark' ? 'dark-mode' : 'light-mode';
+    document.documentElement.classList.remove('dark-mode', 'light-mode');
+    document.documentElement.classList.add(theme === 'dark' ? 'dark-mode' : 'light-mode');
   }, [theme]);
 
   // --- Backend Sync Functions ---
@@ -127,21 +129,62 @@ function App() {
 
   useEffect(() => {
     refreshPublicData();
-    const interval = setInterval(refreshPublicData, 5000);
+    const interval = setInterval(refreshPublicData, 15000);
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
     if (isLoggedIn && currentUser) {
       refreshUserData();
-      const interval = setInterval(refreshUserData, 4000);
+      const interval = setInterval(refreshUserData, 15000);
       return () => clearInterval(interval);
     }
   }, [isLoggedIn, currentUser?.id]);
 
+  // --- Socket.io Setup ---
+  useEffect(() => {
+    if (isLoggedIn && currentUser) {
+      const socketInstance = connectSocket(currentUser.id);
 
+      socketInstance.on('message', (newMsg: Message) => {
+        setMessages(prev => {
+          if (prev.some(m => m.id === newMsg.id)) return prev;
+          return [...prev, newMsg];
+        });
+      });
 
-  // Chat message fetch polling
+      socketInstance.on('notification', (newNotif: Notification) => {
+        setNotifications(prev => {
+          if (prev.some(n => n.id === newNotif.id)) return prev;
+          return [newNotif, ...prev];
+        });
+        
+        // Push visual toast alert
+        addToast(newNotif.text, 'success');
+
+        // Automatically trigger data refresh to synchronize tables/dashboards
+        refreshData();
+      });
+
+      return () => {
+        disconnectSocket();
+      };
+    } else {
+      disconnectSocket();
+    }
+  }, [isLoggedIn, currentUser?.id]);
+
+  // Join/leave socket chat room when activeChat changes
+  useEffect(() => {
+    if (activeChat) {
+      joinChat(activeChat.jobId);
+      return () => {
+        leaveChat(activeChat.jobId);
+      };
+    }
+  }, [activeChat?.jobId]);
+
+  // Chat message fetch
   useEffect(() => {
     if (activeChat) {
       const loadChatMessages = async () => {
@@ -153,7 +196,7 @@ function App() {
         }
       };
       loadChatMessages();
-      const interval = setInterval(loadChatMessages, 2500);
+      const interval = setInterval(loadChatMessages, 15000);
       return () => clearInterval(interval);
     }
   }, [activeChat]);
@@ -353,7 +396,10 @@ function App() {
         content,
       });
       if (res.success) {
-        setMessages(prev => [...prev, res.message]);
+        setMessages(prev => {
+          if (prev.some(m => m.id === res.message.id)) return prev;
+          return [...prev, res.message];
+        });
       }
     } catch (err) {
       console.error("Failed to send message:", err);

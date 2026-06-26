@@ -1,4 +1,5 @@
 import prisma from '../config/prisma.js';
+import { emitMessage, emitNotification } from '../socket.js';
 
 export const getMessages = async (req, res) => {
   try {
@@ -26,6 +27,9 @@ export const sendMessage = async (req, res) => {
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       }
     });
+
+    // Emit the message in real-time
+    emitMessage(jobId, newMsg);
 
     // Trigger simulated AI auto-responses for mock users
     const isMockReceiver = !receiverId.startsWith('poster-') && !receiverId.startsWith('worker-'); 
@@ -61,7 +65,7 @@ export const sendMessage = async (req, res) => {
           });
           const partnerName = recUser ? recUser.name : 'Client/Technician';
 
-          await prisma.message.create({
+          const autoMsg = await prisma.message.create({
             data: {
               id: `msg-${Date.now() + 1}`,
               jobId,
@@ -73,8 +77,11 @@ export const sendMessage = async (req, res) => {
             }
           });
 
+          // Emit the simulated message
+          emitMessage(jobId, autoMsg);
+
           // Create alert notification
-          await prisma.notification.create({
+          const notif = await prisma.notification.create({
             data: {
               id: `notif-${Date.now()}`,
               userId: senderId,
@@ -83,6 +90,9 @@ export const sendMessage = async (req, res) => {
               date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
             }
           });
+
+          // Emit the notification in real-time
+          emitNotification(senderId, notif);
         } catch (err) {
           console.error('Simulated auto-reply error:', err);
         }

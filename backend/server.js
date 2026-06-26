@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { createServer } from 'http';
+import { initSocket } from './socket.js';
 
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
@@ -30,6 +32,9 @@ app.use(errorHandler);
 
 // --- Server Startup ---
 const PORT = process.env.PORT || 5050;
-app.listen(PORT, () => {
+const httpServer = createServer(app);
+initSocket(httpServer);
+
+httpServer.listen(PORT, () => {
   console.log(`LaborLink Express server running on port ${PORT}`);
 });
