@@ -140,7 +140,11 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               {/* Notifications Dropdown */}
               {showNotifications && (
-                <div className="glass-panel notif-dropdown">
+                <div className="notif-dropdown" style={{
+                  background: 'var(--bg-surface-solid)',
+                  backdropFilter: 'blur(24px)',
+                  WebkitBackdropFilter: 'blur(24px)',
+                }}>
                   <div className="notif-header">
                     <span className="notif-title">
                       <Bell size={16} color="var(--primary)" /> Activity Alerts
@@ -209,7 +213,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       className="notif-footer" 
                       onClick={() => {
                         setShowNotifications(false);
-                        navigate('/notifications');
+                        setTimeout(() => navigate('/notifications'), 50);
                       }}
                     >
                       View All Alerts →
