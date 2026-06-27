@@ -7,8 +7,9 @@ export const connectSocket = (userId: string): Socket => {
     socket.disconnect();
   }
 
-  // Socket server runs on the same port as Express backend (5050)
-  socket = io('http://localhost:5050', {
+  // Socket server URL — falls back to localhost in development
+  const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:5050';
+  socket = io(SOCKET_URL, {
     query: { userId },
   });
 

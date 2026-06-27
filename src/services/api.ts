@@ -1,6 +1,6 @@
 import type { Job, Application, User, Message, Review } from '../types';
 
-const API_BASE = 'http://localhost:5050/api';
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:5050/api').replace(/\/$/, '');
 
 const fetchJson = async (endpoint: string, options?: RequestInit) => {
   let token = '';
