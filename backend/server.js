@@ -16,9 +16,13 @@ import { errorHandler } from './middleware/errorHandler.js';
 dotenv.config();
 const app = express();
 
-const allowedOrigins = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim())
-  : ['http://localhost:5173'];
+const allowedOrigins = (
+  process.env.FRONTEND_URL
+    ? process.env.FRONTEND_URL.split(',')
+    : process.env.ALLOWED_ORIGINS
+    ? process.env.ALLOWED_ORIGINS.split(',')
+    : ['http://localhost:5173']
+).map(o => o.trim());
 
 app.use(cors({
   origin: (origin, callback) => {

@@ -14,157 +14,59 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
   onClose,
 }) => {
   return (
-    <div style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      backgroundColor: 'rgba(0, 0, 0, 0.65)',
-      backdropFilter: 'blur(8px)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      zIndex: 1000,
-      padding: '1.5rem',
-      animation: 'fadeIn 0.2s forwards',
-    }}>
-      <div
-        className="glass-panel"
-        style={{
-          width: '100%',
-          maxWidth: '550px',
-          maxHeight: '85vh',
-          overflowY: 'auto',
-          padding: '2rem',
-          boxShadow: 'var(--shadow-xl)',
-          position: 'relative',
-          animation: 'slideUp 0.3s forwards',
-          textAlign: 'left',
-        }}
-      >
-        {/* Close Button */}
+    <div className="modal-overlay">
+      <div className="glass-panel modal-panel modal-panel-md" role="dialog" aria-modal="true" aria-label={`${technician.name}'s profile`}>
         <button
           onClick={onClose}
-          style={{
-            position: 'absolute',
-            top: '1rem',
-            right: '1rem',
-            background: 'none',
-            border: 'none',
-            color: 'var(--text-muted)',
-            cursor: 'pointer',
-            padding: '0.25rem',
-            borderRadius: '50%',
-            transition: 'all 0.15s',
-          }}
-          onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
-          onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
+          className="btn-ghost modal-close"
+          aria-label="Close profile"
+          onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
         >
           <X size={20} />
         </button>
 
-        {/* Head Info */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '1.5rem' }}>
+        {/* Header */}
+        <div className="profile-header">
           <img
             src={technician.avatar}
             alt={technician.name}
-            style={{
-              width: '80px',
-              height: '80px',
-              borderRadius: '50%',
-              objectFit: 'cover',
-              border: '3px solid var(--primary)',
-            }}
+            className="profile-avatar"
           />
           <div>
             <h2 style={{ fontSize: '1.5rem', fontWeight: 800, fontFamily: 'var(--font-heading)', marginBottom: '0.25rem' }}>
               {technician.name}
             </h2>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '2px', color: 'var(--warning)', fontWeight: 700 }}>
-                ★ {technician.rating}
-              </span>
+            <div className="flex-center" style={{ gap: '0.75rem', fontSize: '0.85rem', color: 'var(--text-secondary)', justifyContent: 'flex-start' }}>
+              <span className="job-card-rating">★ {technician.rating}</span>
               <span>•</span>
               <span>{technician.reviewCount} Reviews</span>
             </div>
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '4px',
-              fontSize: '0.7rem',
-              backgroundColor: 'var(--accent-light)',
-              color: 'var(--accent)',
-              padding: '2px 8px',
-              borderRadius: '9999px',
-              fontWeight: 800,
-              textTransform: 'uppercase',
-              letterSpacing: '0.05em',
-              marginTop: '0.5rem',
-            }}>
+            <div className="certified-badge">
               <CheckCircle size={10} /> Certified Specialist
             </div>
           </div>
         </div>
 
-        {/* Stats Row */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '1rem',
-          marginBottom: '1.5rem',
-        }}>
-          <div style={{
-            backgroundColor: 'rgba(0,0,0,0.15)',
-            padding: '1rem',
-            borderRadius: 'var(--radius-lg)',
-            border: '1px solid var(--border-color)',
-            textAlign: 'center',
-          }}>
-            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', fontWeight: 600 }}>
-              Completed Projects
-            </span>
-            <span style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'var(--font-heading)' }}>
-              {technician.completedJobs}
-            </span>
+        {/* Stats */}
+        <div className="profile-stats">
+          <div className="profile-stat-box">
+            <span className="profile-stat-label">Completed Projects</span>
+            <span className="profile-stat-value">{technician.completedJobs}</span>
           </div>
-
-          <div style={{
-            backgroundColor: 'rgba(0,0,0,0.15)',
-            padding: '1rem',
-            borderRadius: 'var(--radius-lg)',
-            border: '1px solid var(--border-color)',
-            textAlign: 'center',
-          }}>
-            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', fontWeight: 600 }}>
-              Job Success Rate
-            </span>
-            <span style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--accent)', fontFamily: 'var(--font-heading)' }}>
-              100%
-            </span>
+          <div className="profile-stat-box">
+            <span className="profile-stat-label">Job Success Rate</span>
+            <span className="profile-stat-value" style={{ color: 'var(--accent)' }}>100%</span>
           </div>
         </div>
 
-        {/* Certifications & Badges */}
+        {/* Credentials */}
         {technician.certifications.length > 0 && (
           <div style={{ marginBottom: '1.5rem' }}>
-            <h3 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>
-              Credentials & Licenses
-            </h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            <h3 className="section-label">Credentials & Licenses</h3>
+            <div className="flex-col" style={{ gap: '0.5rem' }}>
               {technician.certifications.map((cert, idx) => (
-                <div key={idx} style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  fontSize: '0.8rem',
-                  backgroundColor: 'rgba(99, 102, 241, 0.05)',
-                  border: '1px solid rgba(99, 102, 241, 0.15)',
-                  padding: '0.5rem 0.75rem',
-                  borderRadius: 'var(--radius-md)',
-                  color: 'var(--primary)',
-                  fontWeight: 600,
-                }}>
+                <div key={idx} className="credential-item">
                   <Award size={16} />
                   <span>{cert}</span>
                 </div>
@@ -173,54 +75,30 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
           </div>
         )}
 
-        {/* Skills Tag Cloud */}
+        {/* Skills */}
         <div style={{ marginBottom: '1.75rem' }}>
-          <h3 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>
-            Verified Skills
-          </h3>
+          <h3 className="section-label">Verified Skills</h3>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
             {technician.skills.map((skill, idx) => (
-              <span
-                key={idx}
-                style={{
-                  fontSize: '0.75rem',
-                  backgroundColor: 'var(--primary-light)',
-                  color: 'var(--primary)',
-                  border: '1px solid rgba(99, 102, 241, 0.1)',
-                  padding: '4px 10px',
-                  borderRadius: 'var(--radius-md)',
-                  fontWeight: 700,
-                }}
-              >
-                {skill}
-              </span>
+              <span key={idx} className="skill-chip">{skill}</span>
             ))}
           </div>
         </div>
 
-        {/* Reviews Section */}
+        {/* Reviews */}
         <div>
-          <h3 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.75rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.375rem' }}>
+          <h3 className="section-label" style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '0.375rem' }}>
             Client Reviews ({reviews.length})
           </h3>
           {reviews.length === 0 ? (
-            <div style={{ padding: '1.5rem', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.8rem' }}>
-              No reviews registered yet.
-            </div>
+            <div className="empty-state">No reviews registered yet.</div>
           ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem' }}>
+            <div className="flex-col" style={{ gap: '0.875rem' }}>
               {reviews.map((rev) => (
-                <div key={rev.id} style={{
-                  padding: '0.875rem',
-                  backgroundColor: 'rgba(255,255,255,0.02)',
-                  border: '1px solid var(--border-color)',
-                  borderRadius: 'var(--radius-lg)',
-                }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-                    <span style={{ fontWeight: 700, fontSize: '0.8rem', color: 'var(--text-primary)' }}>
-                      {rev.reviewerName}
-                    </span>
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '1px', color: 'var(--warning)', fontSize: '0.75rem', fontWeight: 700 }}>
+                <div key={rev.id} className="review-card">
+                  <div className="flex-between" style={{ marginBottom: '4px' }}>
+                    <span style={{ fontWeight: 700, fontSize: '0.8rem' }}>{rev.reviewerName}</span>
+                    <span className="job-card-rating" style={{ fontSize: '0.75rem' }}>
                       {'★'.repeat(rev.rating)}
                     </span>
                   </div>

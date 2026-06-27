@@ -304,14 +304,17 @@ export const AuthPage: React.FC<AuthPageProps> = ({
   };
 
   return (
-    <div style={{
+    <div className="auth-bg-vivid" style={{
       display: 'grid',
       gridTemplateColumns: '1fr',
       minHeight: '100vh',
       width: '100%',
-      backgroundColor: 'var(--bg-app)',
       position: 'relative',
     }}>
+      {/* Floating background orbs */}
+      <div className="auth-orb-1" />
+      <div className="auth-orb-2" />
+      <div className="auth-orb-3" />
       {/* Back to Home Page Button */}
       {onClose && (
         <button
@@ -358,7 +361,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({
         padding: '2rem 1.5rem',
       }}>
         {/* Auth Form Box */}
-        <div className="glass-panel animate-slide-up" style={{
+        <div className="glass-panel animate-slide-up auth-box-vivid" style={{
           padding: '2.5rem',
           border: '1px solid var(--border-color)',
           boxShadow: 'var(--shadow-xl)',

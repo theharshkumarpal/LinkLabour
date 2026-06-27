@@ -98,7 +98,7 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({
   }).length;
 
   return (
-    <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '2rem 1rem', textAlign: 'left' }}>
+    <div className="notif-page-bg animate-fade-in" style={{ maxWidth: '1000px', margin: '0 auto', textAlign: 'left' }}>
       
       {/* Header bar */}
       <div style={{
@@ -144,12 +144,12 @@ export const NotificationsPage: React.FC<NotificationsPageProps> = ({
         marginBottom: '2.5rem',
       }}>
         {[
-          { label: 'Total Notifications', value: totalCount, color: 'var(--primary)' },
-          { label: 'Unread Alerts', value: unreadCount, color: unreadCount > 0 ? 'var(--danger)' : 'var(--text-muted)' },
-          { label: 'Payments Activity', value: paymentCount, color: 'var(--accent)' },
-          { label: 'Milestone Handbacks', value: taskCount, color: 'var(--info)' },
+          { label: 'Total Notifications', value: totalCount, color: 'var(--primary)', border: 'rgba(99,102,241,0.25)', bg: 'rgba(99,102,241,0.07)' },
+          { label: 'Unread Alerts', value: unreadCount, color: unreadCount > 0 ? 'var(--danger)' : 'var(--text-muted)', border: unreadCount > 0 ? 'rgba(239,68,68,0.25)' : 'var(--border-color)', bg: unreadCount > 0 ? 'rgba(239,68,68,0.06)' : 'transparent' },
+          { label: 'Payments Activity', value: paymentCount, color: 'var(--accent)', border: 'rgba(16,185,129,0.25)', bg: 'rgba(16,185,129,0.07)' },
+          { label: 'Milestone Handbacks', value: taskCount, color: 'var(--info)', border: 'rgba(6,182,212,0.25)', bg: 'rgba(6,182,212,0.07)' },
         ].map((stat, i) => (
-          <div key={i} className="glass-panel" style={{ padding: '1.25rem', border: '1px solid var(--border-color)' }}>
+          <div key={i} className="glass-panel" style={{ padding: '1.25rem', border: `1px solid ${stat.border}`, background: stat.bg }}>
             <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)', display: 'block' }}>{stat.label}</span>
             <span style={{ fontSize: '1.75rem', fontWeight: 800, fontFamily: 'var(--font-heading)', color: stat.color, marginTop: '2px', display: 'block' }}>{stat.value}</span>
           </div>

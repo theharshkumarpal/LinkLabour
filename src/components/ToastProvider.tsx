@@ -40,18 +40,24 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   return (
     <ToastContext.Provider value={{ addToast }}>
       {children}
-      <div style={{
-        position: 'fixed',
-        bottom: '24px',
-        right: '24px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '12px',
-        zIndex: 9999,
-      }}>
+      <div
+        role="region"
+        aria-label="Notifications"
+        aria-live="polite"
+        style={{
+          position: 'fixed',
+          bottom: '24px',
+          right: '24px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '12px',
+          zIndex: 9999,
+        }}
+      >
         {toasts.map(toast => (
           <div
             key={toast.id}
+            role="alert"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -76,14 +82,8 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
             </span>
             <button
               onClick={() => removeToast(toast.id)}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: 'var(--text-muted)',
-                cursor: 'pointer',
-                display: 'flex',
-                padding: '4px',
-              }}
+              className="btn-ghost"
+              aria-label="Dismiss notification"
             >
               <X size={16} />
             </button>

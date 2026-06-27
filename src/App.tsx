@@ -761,12 +761,15 @@ function App() {
                   marginBottom: '2.5rem',
                 }}>
                   {[
-                    { label: 'Total Job Requests', value: posterJobs.length, color: 'var(--primary)' },
-                    { label: 'Pending Proposals', value: applications.filter(a => posterJobs.some(j => j.id === a.jobId) && a.status === 'pending').length, color: 'var(--warning)' },
-                    { label: 'Projects in Progress', value: posterJobs.filter(j => j.status === 'in_progress').length, color: 'var(--info)' },
-                    { label: 'Completed Services', value: posterJobs.filter(j => j.status === 'completed').length, color: 'var(--accent)' }
+                    { label: 'Total Job Requests', value: posterJobs.length, color: 'var(--primary)', border: 'rgba(99,102,241,0.3)', bg: 'rgba(99,102,241,0.08)' },
+                    { label: 'Pending Proposals', value: applications.filter(a => posterJobs.some(j => j.id === a.jobId) && a.status === 'pending').length, color: 'var(--warning)', border: 'rgba(245,158,11,0.3)', bg: 'rgba(245,158,11,0.08)' },
+                    { label: 'Projects in Progress', value: posterJobs.filter(j => j.status === 'in_progress').length, color: 'var(--info)', border: 'rgba(6,182,212,0.3)', bg: 'rgba(6,182,212,0.08)' },
+                    { label: 'Completed Services', value: posterJobs.filter(j => j.status === 'completed').length, color: 'var(--accent)', border: 'rgba(16,185,129,0.3)', bg: 'rgba(16,185,129,0.08)' }
                   ].map((s, i) => (
-                    <div key={i} className="glass-panel" style={{ padding: '1.25rem', border: '1px solid var(--border-color)' }}>
+                    <div key={i} className="glass-panel" style={{ padding: '1.25rem', border: `1px solid ${s.border}`, background: s.bg, transition: 'all 0.25s ease' }}
+                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-3px)'; (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 20px rgba(0,0,0,0.15)'; }}
+                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = ''; (e.currentTarget as HTMLElement).style.boxShadow = ''; }}
+                    >
                       <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)', display: 'block' }}>{s.label}</span>
                       <span style={{ fontSize: '1.75rem', fontWeight: 800, fontFamily: 'var(--font-heading)', color: s.color, marginTop: '2px', display: 'block' }}>{s.value}</span>
                     </div>

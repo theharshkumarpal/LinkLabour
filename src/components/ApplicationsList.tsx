@@ -20,37 +20,19 @@ export const ApplicationsList: React.FC<ApplicationsListProps> = ({
   onViewProfile,
 }) => {
   return (
-    <div className="glass-panel animate-fade-in" style={{ padding: '2rem', textAlign: 'left' }}>
-      {/* Header back-link */}
-      <button
-        onClick={onBack}
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '6px',
-          background: 'none',
-          border: 'none',
-          color: 'var(--primary)',
-          cursor: 'pointer',
-          fontWeight: 700,
-          fontSize: '0.9rem',
-          marginBottom: '1.5rem',
-        }}
-      >
+    <div className="glass-panel animate-fade-in applications-container">
+      {/* Back link */}
+      <button onClick={onBack} className="back-link">
         <ArrowLeft size={16} /> Back to Dashboard
       </button>
 
-      {/* Job Context Summary */}
-      <div style={{
-        borderBottom: '1px solid var(--border-color)',
-        paddingBottom: '1.25rem',
-        marginBottom: '2rem',
-      }}>
+      {/* Job Summary */}
+      <div className="applications-header">
         <span className="badge badge-open" style={{ marginBottom: '0.5rem' }}>Reviewing Proposals</span>
         <h2 style={{ fontSize: '1.6rem', fontWeight: 800, fontFamily: 'var(--font-heading)', marginBottom: '0.5rem' }}>
           Proposals for "{job.title}"
         </h2>
-        <div style={{ display: 'flex', gap: '1.5rem', color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
+        <div className="applications-meta">
           <span>Category: <strong style={{ color: 'var(--text-primary)' }}>{job.category}</strong></span>
           <span>•</span>
           <span>Target Budget: <strong style={{ color: 'var(--accent)' }}>${job.budget}</strong></span>
@@ -59,134 +41,67 @@ export const ApplicationsList: React.FC<ApplicationsListProps> = ({
         </div>
       </div>
 
-      {/* Applications Listing */}
+      {/* Applications */}
       <div>
         <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem', fontFamily: 'var(--font-heading)' }}>
           Active Bids ({applications.length})
         </h3>
 
         {applications.length === 0 ? (
-          <div style={{
-            padding: '4rem 2rem',
-            textAlign: 'center',
-            backgroundColor: 'rgba(0,0,0,0.1)',
-            borderRadius: 'var(--radius-xl)',
-            color: 'var(--text-muted)',
-            fontSize: '0.9rem',
-          }}>
+          <div className="empty-state empty-state-lg">
             No applications received for this job yet. Check back soon!
           </div>
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          <div className="flex-col" style={{ gap: '1.25rem' }}>
             {applications.map((app) => (
               <div
                 key={app.id}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '1rem',
-                  padding: '1.5rem',
-                  backgroundColor: 'var(--bg-surface)',
-                  border: '1px solid var(--border-color)',
-                  borderRadius: 'var(--radius-xl)',
-                  transition: 'border-color 0.25s',
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.3)'}
-                onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border-color)'}
+                className="application-card"
+                onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.3)')}
+                onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--border-color)')}
               >
-                {/* Header card: User capsule info */}
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  flexWrap: 'wrap',
-                  gap: '1rem',
-                }}>
-                  {/* Left profile info */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem' }}>
+                {/* Applicant info row */}
+                <div className="applicant-info">
+                  <div className="applicant-profile">
                     <img
                       src={app.workerAvatar}
                       alt={app.workerName}
-                      style={{
-                        width: '52px',
-                        height: '52px',
-                        borderRadius: '50%',
-                        objectFit: 'cover',
-                        border: '2px solid var(--primary)',
-                      }}
+                      className="applicant-avatar"
                     />
                     <div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <div className="flex-center" style={{ gap: '6px', justifyContent: 'flex-start' }}>
                         <h4 style={{ fontSize: '1.05rem', fontWeight: 700, fontFamily: 'var(--font-heading)' }}>
                           {app.workerName}
                         </h4>
-                        <span style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          color: 'var(--info)',
-                        }} data-tooltip="Identity Verified Specialist">
+                        <span style={{ color: 'var(--info)' }} data-tooltip="Identity Verified Specialist">
                           <ShieldCheck size={16} />
                         </span>
                       </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '2px' }}>
-                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '2px', color: 'var(--warning)', fontWeight: 700 }}>
-                          ★ {app.workerRating}
-                        </span>
+                      <div className="applicant-rating">
+                        <span className="job-card-rating">★ {app.workerRating}</span>
                         <span>•</span>
-                        <span>Job Completion: <strong style={{ color: 'var(--accent)' }}>{app.workerCompletionRate}%</strong></span>
+                        <span>Completion: <strong style={{ color: 'var(--accent)' }}>{app.workerCompletionRate}%</strong></span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Right Bid price */}
-                  <div style={{
-                    textAlign: 'right',
-                    backgroundColor: 'rgba(16, 185, 129, 0.08)',
-                    border: '1px solid rgba(16, 185, 129, 0.2)',
-                    padding: '0.5rem 1rem',
-                    borderRadius: 'var(--radius-lg)',
-                  }}>
-                    <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', fontWeight: 600 }}>
-                      Worker Bid Quote
-                    </span>
-                    <span style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--accent)', fontFamily: 'var(--font-heading)' }}>
-                      ${app.bidAmount}
-                    </span>
+                  {/* Bid price */}
+                  <div className="bid-price-box">
+                    <span className="bid-price-label">Worker Bid Quote</span>
+                    <span className="bid-price-value">${app.bidAmount}</span>
                   </div>
                 </div>
 
-                {/* Pitch Message */}
-                <div style={{
-                  backgroundColor: 'rgba(0, 0, 0, 0.15)',
-                  padding: '1rem',
-                  borderRadius: 'var(--radius-lg)',
-                  fontSize: '0.85rem',
-                  color: 'var(--text-secondary)',
-                  lineHeight: '1.5',
-                }}>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '4px',
-                    fontWeight: 700,
-                    color: 'var(--text-primary)',
-                    marginBottom: '4px',
-                    fontSize: '0.75rem',
-                    textTransform: 'uppercase',
-                  }}>
+                {/* Proposal pitch */}
+                <div className="pitch-box">
+                  <div className="pitch-label">
                     <Mail size={12} color="var(--primary)" /> Proposal Pitch
                   </div>
                   {app.message}
                 </div>
 
-                {/* Proposal actions */}
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                  gap: '0.75rem',
-                  borderTop: '1px solid var(--border-color)',
-                  paddingTop: '0.75rem',
-                }}>
+                {/* Actions */}
+                <div className="application-actions">
                   <button
                     className="btn btn-outline"
                     onClick={() => onViewProfile(app.workerId)}
